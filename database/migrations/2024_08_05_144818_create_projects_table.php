@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->text('synopsis')->nullable();
             $table->integer('views')->default(0);
             $table->double('rating')->default(0.00);
             $table->integer('published_at')->nullable();
             $table->string('status');
+            $table->longText('image')->nullable();
             $table->foreignId('type_id')->constrained('types');
             $table->timestamps();
         });

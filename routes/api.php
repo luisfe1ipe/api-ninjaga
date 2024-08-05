@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +21,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
         Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
 
-        Route::post('/artists', [AuthorController::class, 'store'])->name('artists.store');
-        Route::put('/artists/{artist}', [AuthorController::class, 'update'])->name('artists.update');
+        Route::post('/artists', [ArtistController::class, 'store'])->name('artists.store');
+        Route::put('/artists/{artist}', [ArtistController::class, 'update'])->name('artists.update');
+
+        Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     });
     
 });
@@ -34,7 +38,7 @@ Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.sh
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 
-Route::get('/artists', [AuthorController::class, 'index'])->name('artists.index');
-Route::get('/artists/{artist}', [AuthorController::class, 'show'])->name('artists.show');
+Route::get('/artists', [ArtistController::class, 'index'])->name('artists.index');
+Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artists.show');
 
 require __DIR__.'/auth.php';
