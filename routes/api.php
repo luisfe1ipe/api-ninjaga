@@ -17,6 +17,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('genres.update');
 
         Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
+        Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
     });
     
 });

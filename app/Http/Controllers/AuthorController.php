@@ -51,9 +51,29 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Author $author)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'bio' => ['required', 'string'],
+            'new_avatar' => ['nullable', 'image'],
+            'new_wallpaper' => ['nullable', 'image'],
+        ]);
+
+        $data = $request->only(['name', 'bio']);
+
+        if ($request->file('new_avatar')) {
+            $data['new_avatar'] = FileHandler::update($request->new_avatar, 'authors/avatars/', $author->avatar);
+        }
+
+        if ($request->file('new_wallpaper')) {
+            $data['new_wallpaper'] = FileHandler::update($request->new_wallpaper, 'authors/wallpapers/', $author->wallpaper);
+        }
+
+        $author->update($data);
+        $author->save();
+
+        return response()->json(['data' => $author], Response::HTTP_OK);
     }
 
     /**
