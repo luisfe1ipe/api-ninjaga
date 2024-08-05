@@ -28,5 +28,6 @@ Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
 Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.show');
 
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
+Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
 
 require __DIR__.'/auth.php';

@@ -43,9 +43,9 @@ class AuthorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Author $author)
     {
-        //
+        return response()->json(['data' => $author], Response::HTTP_OK);
     }
 
     /**
