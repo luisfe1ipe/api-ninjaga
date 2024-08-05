@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectIndexRequest;
 use App\Http\Requests\ProjectStoreRequest;
+use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
 use App\Services\FileHandler;
 use App\Services\FilterProjects;
@@ -47,7 +48,7 @@ class ProjectController extends Controller
 
             return $project;
         });
-        
+
         $project->image = FileHandler::store($request->image, 'projects/images/');
         $project->save();
 
@@ -71,9 +72,37 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
-        //
+        DB::transaction(function () use ($request, $project) {
+            $projectData = $request->except(['genres', 'authors', 'artists', 'image']);
+
+            if ($request->has('title')) {
+                $projectData['slug'] = Str::slug($request->get('title')) . '-' . rand(10000, 99999);
+            }
+
+            $project->update($projectData);
+
+            if ($request->has('genres')) {
+                $project->genres()->sync($request->get('genres'));
+            }
+
+            if ($request->has('authors')) {
+                $project->authors()->sync($request->get('authors'));
+            }
+
+            if ($request->has('artists')) {
+                $project->artists()->sync($request->get('artists'));
+            }
+
+            // Atualização da imagem, se for fornecida
+            if ($request->hasFile('image')) {
+                $project->image = FileHandler::update($request->file('image'), 'projects/images/', $project->image);
+                $project->save();
+            }
+        });
+
+        return response()->json(['data' => $project->fresh()], Response::HTTP_OK);
     }
 
     /**
