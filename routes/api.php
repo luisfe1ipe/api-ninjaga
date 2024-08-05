@@ -41,4 +41,6 @@ Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('author
 Route::get('/artists', [ArtistController::class, 'index'])->name('artists.index');
 Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artists.show');
 
+Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+
 require __DIR__.'/auth.php';

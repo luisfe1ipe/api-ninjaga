@@ -44,9 +44,16 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $project = Project::where('slug', $slug)->with(['genres', 'authors', 'artists'])->first();
+
+        if(!$project)
+        {
+            return response()->json(['message' => 'Project not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(['data' => $project], Response::HTTP_OK);
     }
 
     /**
