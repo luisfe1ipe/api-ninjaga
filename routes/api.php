@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
         Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('genres.update');
+
+        Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
     });
     
 });
