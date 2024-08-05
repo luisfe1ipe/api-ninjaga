@@ -14,5 +14,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
+Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.show');
 
 require __DIR__.'/auth.php';
