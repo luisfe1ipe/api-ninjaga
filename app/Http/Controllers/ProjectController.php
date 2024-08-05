@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectIndexRequest;
 use App\Http\Requests\ProjectStoreRequest;
 use App\Models\Project;
 use App\Services\FileHandler;
+use App\Services\FilterProjects;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -15,9 +17,17 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ProjectIndexRequest $request)
     {
-        //
+        $request->validated();
+
+        $query = $this->applyFilters(Project::class, 'title');
+
+        $query = FilterProjects::filter($query, $request);
+
+        $projects = $query->with(['genres']);
+
+        return response()->json(['data' => $this->response($projects)], Response::HTTP_OK);
     }
 
     /**
@@ -25,7 +35,7 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        $project = DB::transaction(function () use ($request){
+        $project = DB::transaction(function () use ($request) {
             $projectData = $request->except(['genres', 'authors', 'artists', 'image']);
             $projectData['slug'] = Str::slug($request->get('title')) . '-' . rand(10000, 99999);
 
@@ -35,7 +45,7 @@ class ProjectController extends Controller
             $project->authors()->attach($request->get('authors'));
             $project->artists()->attach($request->get('artists'));
 
-            return $project->load(['genres', 'authors', 'artists']);
+            return $project;
         });
 
         return response()->json(['data' => $project], Response::HTTP_OK);
@@ -48,8 +58,7 @@ class ProjectController extends Controller
     {
         $project = Project::where('slug', $slug)->with(['genres', 'authors', 'artists'])->first();
 
-        if(!$project)
-        {
+        if (!$project) {
             return response()->json(['message' => 'Project not found'], Response::HTTP_NOT_FOUND);
         }
 

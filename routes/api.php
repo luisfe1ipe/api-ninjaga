@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     });
-    
+
 });
 
 Route::get('/types', [TypeController::class, 'index'])->name('types.index');
@@ -41,6 +41,7 @@ Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('author
 Route::get('/artists', [ArtistController::class, 'index'])->name('artists.index');
 Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artists.show');
 
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
