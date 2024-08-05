@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusProjectEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,13 @@ class Project extends Model
         'status',
         'type_id',
     ];
+
+    protected function casts():array
+    {
+        return [
+            'status' => StatusProjectEnum::class,
+        ];
+    }
 
     public function genres(): BelongsToMany
     {

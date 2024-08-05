@@ -8,4 +8,14 @@ enum StatusProjectEnum: string
   case COMPLETED = 'Concluído';
   case CANCELLED = 'Cancelado';
   case HIATUS = 'Hiato';
+
+  public static function values(): array
+  {
+    return [
+      self::ONGOING->value,
+      self::COMPLETED->value,
+      self::CANCELLED->value,
+      self::HIATUS->value,
+    ];
+  }
 }
