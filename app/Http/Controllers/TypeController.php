@@ -44,9 +44,15 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Type $type)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string','max:255', Rule::unique('types')->ignore($type->id)]
+        ]);
+
+        $type->update($request->only('name'));
+
+        return response()->json(['data' => $type], Response::HTTP_OK);
     }
 
     /**
