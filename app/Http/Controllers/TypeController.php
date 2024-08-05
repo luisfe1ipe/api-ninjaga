@@ -36,9 +36,9 @@ class TypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Type $type)
     {
-        //
+        return response()->json(['data' => $type], Response::HTTP_OK);
     }
 
     /**
