@@ -9,6 +9,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // SUPER-ADMIN AND ADMIN
     Route::middleware(['can:super-admin,admin'])->group(function () {
         Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
+        Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('genres.update');
     });
     
 });
