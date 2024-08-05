@@ -14,7 +14,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authors = $this->applyFilters(Author::class, 'name');
+
+        return response()->json(['data' => $this->response($authors)], Response::HTTP_OK);
     }
 
     /**
