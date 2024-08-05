@@ -14,7 +14,9 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $query = $this->applyFilters(Genre::class, 'name');
+
+        return response()->json(['data' => $this->response($query)], Response::HTTP_OK);
     }
 
     /**

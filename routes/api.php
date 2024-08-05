@@ -10,6 +10,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['can:super-admin,admin'])->group(function () {
         Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
     });
-
+    
 });
+
+Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
+
 require __DIR__.'/auth.php';
