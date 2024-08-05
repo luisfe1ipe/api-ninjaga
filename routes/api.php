@@ -17,6 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     
 });
 
+Route::get('/types', [TypeController::class, 'index'])->name('types.index');
+
 Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
 Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.show');
 

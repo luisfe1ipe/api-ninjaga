@@ -14,7 +14,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = $this->applyFilters(Type::class, 'name');
+
+        return response()->json(['data' => $this->response($types)], Response::HTTP_OK);
     }
 
     /**
