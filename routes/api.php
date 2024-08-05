@@ -18,6 +18,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::post('/authors', [AuthorController::class, 'store'])->name('authors.store');
         Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('authors.update');
+
+        Route::post('/artists', [AuthorController::class, 'store'])->name('artists.store');
+        Route::put('/artists/{artist}', [AuthorController::class, 'update'])->name('artists.update');
     });
     
 });
@@ -30,5 +33,8 @@ Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.sh
 
 Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
 Route::get('/authors/{author}', [AuthorController::class, 'show'])->name('authors.show');
+
+Route::get('/artists', [AuthorController::class, 'index'])->name('artists.index');
+Route::get('/artists/{artist}', [AuthorController::class, 'show'])->name('artists.show');
 
 require __DIR__.'/auth.php';
