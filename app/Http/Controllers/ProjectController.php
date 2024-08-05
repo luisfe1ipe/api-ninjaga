@@ -47,6 +47,9 @@ class ProjectController extends Controller
 
             return $project;
         });
+        
+        $project->image = FileHandler::store($request->image, 'projects/images/');
+        $project->save();
 
         return response()->json(['data' => $project], Response::HTTP_OK);
     }
