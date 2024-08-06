@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
-    Route::post('request-chapter', [RequestChapterController::class, 'store'])->name('request-chapter.store');
 
 
     // SUPER-ADMIN AND ADMIN
@@ -38,6 +37,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/volumes/{volume}', [VolumeController::class, 'update'])->name('volumes.update');
     });
 
+    Route::middleware(['can:scan-admin'])->group(function () {
+        Route::post('request-chapter', [RequestChapterController::class, 'store'])->name('request-chapter.store');
+    });
 });
 
 Route::get('/types', [TypeController::class, 'index'])->name('types.index');
