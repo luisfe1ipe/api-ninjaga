@@ -4,12 +4,16 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RequestChapterController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\VolumeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::post('request-chapter', [RequestChapterController::class, 'store'])->name('request-chapter.store');
+
 
     // SUPER-ADMIN AND ADMIN
     Route::middleware(['can:super-admin,admin'])->group(function () {
@@ -50,5 +54,6 @@ Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artist
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+
 
 require __DIR__ . '/auth.php';

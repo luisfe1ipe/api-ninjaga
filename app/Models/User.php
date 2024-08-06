@@ -53,14 +53,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class);
     }
 
-    public function assignPermission(string $permission): void
+    public function assignPermission(string $permissionName): void
     {
-
-        $permission = $this->permissions()->firstOrCreate([
-            'name' => $permission,
+        $permission = Permission::firstOrCreate([
+            'name' => $permissionName,
         ]);
 
-        $this->permissions()->attach($permission);
+        if (!$this->permissions()->where('name', $permissionName)->exists()) {
+            $this->permissions()->attach($permission);
+        }
     }
 
     public function hasPermission(string $permission): bool
