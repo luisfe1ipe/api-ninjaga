@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\VolumeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
         Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+
+        Route::post('/volumes', [VolumeController::class, 'store'])->name('volumes.store');
     });
 
 });
