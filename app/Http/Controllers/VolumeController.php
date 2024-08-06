@@ -57,9 +57,20 @@ class VolumeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Volume $volume)
     {
-        //
+        $request->validate([
+            'name' => ['string', 'required', 'max:255'],
+            'date' => ['nullable', 'date'],
+            'project_id' => ['required', Rule::exists('projects', 'id')],
+        ]);
+
+        $data = $request->only(['name', 'date', 'project_id']);
+
+        $volume->update($data);
+        $volume->save();
+
+        return response()->json(['data' => $volume], Response::HTTP_OK);
     }
 
     /**
