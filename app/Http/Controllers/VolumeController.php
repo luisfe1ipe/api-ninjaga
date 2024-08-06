@@ -12,9 +12,18 @@ class VolumeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = $this->applyFilters(Volume::class, 'name');
+
+        if($request->filled('project_id'))
+        {
+            $query = $query->where('project_id', $request->project_id);
+        }
+
+        $query = $query->with(['project']);
+
+        return response()->json(['data' => $this->response($query)], Response::HTTP_OK);
     }
 
     /**
