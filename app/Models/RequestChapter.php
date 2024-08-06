@@ -14,10 +14,16 @@ class RequestChapter extends Model
         'chapter',
         'volume',
         'project_id',
+        'user_id'
     ];
 
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
