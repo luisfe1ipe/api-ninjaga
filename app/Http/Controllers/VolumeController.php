@@ -38,9 +38,11 @@ class VolumeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Volume $volume)
     {
-        //
+        $volume = $volume->with(['project'])->get();
+
+        return response()->json(['data' => $volume], Response::HTTP_OK);
     }
 
     /**

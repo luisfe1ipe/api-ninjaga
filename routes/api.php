@@ -29,6 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
 
         Route::post('/volumes', [VolumeController::class, 'store'])->name('volumes.store');
+        Route::get('/volumes/{volume}', [VolumeController::class, 'show'])->name('volumes.show');
     });
 
 });
