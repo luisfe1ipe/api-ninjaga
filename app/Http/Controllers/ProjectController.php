@@ -60,7 +60,7 @@ class ProjectController extends Controller
      */
     public function show(string $slug)
     {
-        $project = Project::where('slug', $slug)->with(['genres', 'authors', 'artists'])->first();
+        $project = Project::where('slug', $slug)->with(['genres', 'authors', 'artists', 'volumes.chapters'])->first();
 
         if (!$project) {
             return response()->json(['message' => 'Project not found'], Response::HTTP_NOT_FOUND);
