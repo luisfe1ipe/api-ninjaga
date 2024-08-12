@@ -9,10 +9,15 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\VolumeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
-
+    Route::get('/profile', function (Request $request) {
+        return response()->json([
+            'data' => $request->user()->with('permissions')->first()
+        ], Response::HTTP_OK);
+    });
 
     // SUPER-ADMIN AND ADMIN
     Route::middleware(['can:super-admin,admin'])->group(function () {

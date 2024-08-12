@@ -27,8 +27,14 @@ class ProjectController extends Controller
         $query = FilterProjects::filter($query, $request);
 
         $projects = $query->with(['genres']);
+        $projects = $this->response($projects);
 
-        return response()->json(['data' => $this->response($projects)], Response::HTTP_OK);
+        $mostView = Project::orderBy('views', 'desc')
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
+
+        return response()->json(['data' => ['most_view' => $mostView, $projects]], Response::HTTP_OK);
     }
 
     /**

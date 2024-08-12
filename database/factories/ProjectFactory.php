@@ -29,7 +29,8 @@ class ProjectFactory extends Factory
             'image' => fake()->imageUrl(),
             'published_at' => fake()->year(),
             'status' => fake()->randomElement(StatusProjectEnum::values()),
-            'type_id' => Type::factory()
+            'type_id' => Type::factory(),
+            'views' => fake()->numberBetween(400, 999999)
         ];
     }
 
