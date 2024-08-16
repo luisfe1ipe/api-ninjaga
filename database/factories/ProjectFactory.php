@@ -22,11 +22,24 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
+        $images = [
+            'https://dsectcomics.org/wp-content/uploads/2023/12/cover-1-1-1.jpg',
+            'https://dsectcomics.org/wp-content/uploads/2024/05/infiniteGachaCover03.png',
+            'https://dsectcomics.org/wp-content/uploads/2024/05/ORV03.jpg',
+            'https://dsectcomics.org/wp-content/uploads/2024/06/MystMightMayhemCover01.png',
+            'https://dsectcomics.org/wp-content/uploads/2024/06/StarEmbracingSwordmasterCover01.png',
+            'https://dsectcomics.org/wp-content/uploads/2023/12/swordmastersyoungestCover02.png',
+            'https://dsectcomics.org/wp-content/uploads/2024/05/TWAE.jpg',
+            'https://dsectcomics.org/wp-content/uploads/2024/06/LWGCover.jpg',
+            'https://dsectcomics.org/wp-content/uploads/2024/05/MaxeLevelPlayer.jpg',
+            'https://dsectcomics.org/wp-content/uploads/2024/05/SL.jpg',
+        ];
+
         return [
-            'title' => fake()->title(),
+            'title' => fake()->sentence(),
             'synopsis' => fake()->text(),
             'slug' => fake()->slug(),
-            'image' => fake()->imageUrl(),
+            'image' => $images[array_rand($images)],
             'published_at' => fake()->year(),
             'status' => fake()->randomElement(StatusProjectEnum::values()),
             'type_id' => Type::factory(),
