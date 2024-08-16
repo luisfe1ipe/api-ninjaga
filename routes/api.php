@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RequestChapterController;
 use App\Http\Controllers\TypeController;
@@ -61,6 +62,8 @@ Route::get('/artists/{artist}', [ArtistController::class, 'show'])->name('artist
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
+
+Route::get('/', [HomeController::class, 'mostView'])->name('home');
 
 
 require __DIR__ . '/auth.php';
