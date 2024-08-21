@@ -32,6 +32,15 @@ class Project extends Model
         ];
     }
 
+    public function getImageAttribute($image){
+        if(str_contains($image, 'http'))
+        {
+            return $image;
+        }
+
+        return asset('storage/projects/images/'. $image);
+    }
+
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(Genre::class, 'genre_project');
